@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GalaxyMap.Inputs
+namespace WorldMap.Inputs
 {
     public struct MapInputPayload
     {

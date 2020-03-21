@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GalaxyMap.Effects;
-using GalaxyMap.Utils;
 using NaughtyAttributes;
 using UnityEngine;
+using WorldMap.Effects;
+using WorldMap.Utils;
 
-namespace GalaxyMap.Nodes
+namespace WorldMap.Nodes
 {
     public class LinearMapNodeManager : MonoBehaviour, ILinearMapNodeManager
     {

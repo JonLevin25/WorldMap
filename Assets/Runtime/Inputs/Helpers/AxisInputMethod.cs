@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-namespace GalaxyMap.Inputs.Helpers
+namespace WorldMap.Inputs.Helpers
 {
     [Serializable]
     public class AxisInputMethod

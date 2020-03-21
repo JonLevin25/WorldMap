@@ -4,7 +4,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 
-namespace GalaxyMap.Utils
+namespace WorldMap.Utils
 {
     // TODO: unit tests?
     public class PrefabPool<T> where T : Component

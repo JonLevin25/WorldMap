@@ -1,7 +1,7 @@
 ﻿using NaughtyAttributes;
 using UnityEngine;
 
-namespace GalaxyMap.Utils
+namespace WorldMap.Utils
 {
     public class BoundsHolder : MonoBehaviour
     {

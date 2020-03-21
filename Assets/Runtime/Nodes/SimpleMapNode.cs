@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GalaxyMap.Nodes
+namespace WorldMap.Nodes
 {
     /// <summary>
     /// The simplest implementation of a MonoBehaviour IMapNode <br />

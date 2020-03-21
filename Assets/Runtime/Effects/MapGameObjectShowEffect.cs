@@ -3,7 +3,7 @@ using System.Linq;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace GalaxyMap.Effects
+namespace WorldMap.Effects
 {
     public class MapGameObjectShowEffect : MapSelectionEffectBase
     {

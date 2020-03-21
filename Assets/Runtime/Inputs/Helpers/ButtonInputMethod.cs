@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GalaxyMap.Inputs.Helpers
+namespace WorldMap.Inputs.Helpers
 {
     [Serializable]
     public class ButtonInputMethod

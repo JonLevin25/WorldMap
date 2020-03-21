@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
-using GalaxyMap.Nodes;
-using GalaxyMap.Utils;
 using UnityEngine;
+using WorldMap.Nodes;
+using WorldMap.Utils;
 
-namespace GalaxyMap.Navigation
+namespace WorldMap.Navigation
 {
     public class MapCamerasManager : MonoBehaviour
     {

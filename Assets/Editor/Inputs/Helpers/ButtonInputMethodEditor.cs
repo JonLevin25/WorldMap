@@ -1,10 +1,10 @@
 using System;
-using GalaxyMap.Inputs.Helpers;
 using UnityEditor;
 using UnityEngine;
-using static GalaxyMap.Editor.CustomInspectorHelpers;
+using WorldMap.Inputs.Helpers;
+using static WorldMap.Editor.CustomInspectorHelpers;
 
-namespace GalaxyMap.Editor.Inputs.Helpers
+namespace WorldMap.Editor.Inputs.Helpers
 {
     [CustomPropertyDrawer(typeof(ButtonInputMethod))]
     public class ButtonInputMethodEditor : PropertyDrawer

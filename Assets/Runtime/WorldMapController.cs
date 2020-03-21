@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using GalaxyMap.DependencyInjection;
-using GalaxyMap.Inputs;
-using GalaxyMap.Navigation;
-using GalaxyMap.Nodes;
 using UnityEngine;
+using WorldMap.DependencyInjection;
+using WorldMap.Inputs;
+using WorldMap.Navigation;
+using WorldMap.Nodes;
 
-namespace GalaxyMap
+namespace WorldMap
 {
     // Interface should contain methods for input delegate to use
     public interface IMapController

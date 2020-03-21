@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace GalaxyMap.Utils
+namespace WorldMap.Utils
 {
     public class MonoMouseMessageForwarder : MonoBehaviour
     {

@@ -1,7 +1,7 @@
-using GalaxyMap.Nodes;
 using UnityEngine;
+using WorldMap.Nodes;
 
-namespace GalaxyMap.Inputs
+namespace WorldMap.Inputs
 {
     public class LinearMapInputDelegate : MapInputDelegateBase
     {

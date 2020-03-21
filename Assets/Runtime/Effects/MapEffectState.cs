@@ -1,4 +1,4 @@
-namespace GalaxyMap.Effects
+namespace WorldMap.Effects
 {
     public enum MapEffectState
     {

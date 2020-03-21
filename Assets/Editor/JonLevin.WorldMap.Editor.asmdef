@@ -1,11 +1,12 @@
 {
-    "name": "WorldMap",
+    "name": "JonLevin.WorldMap.Editor",
     "references": [
-        "GUID:776d03a35f1b52c4a9aed9f56d7b4229",
-        "GUID:4307f53044263cf4b835bd812fc161a4"
+        "JonLevin.WorldMap"
     ],
     "optionalUnityReferences": [],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

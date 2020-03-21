@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Cinemachine;
 using UnityEngine;
 
-namespace GalaxyMap.Navigation
+namespace WorldMap.Navigation
 {
     public class CinemachineBlendCallbackWrapper : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using Cinemachine;
-using GalaxyMap.Utils;
 using NaughtyAttributes;
 using UnityEngine;
+using WorldMap.Utils;
 
-namespace GalaxyMap.Nodes
+namespace WorldMap.Nodes
 {
     public abstract class MapNodeBase : MonoBehaviour, IMapNode
     {

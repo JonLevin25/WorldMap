@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GalaxyMap.Effects
+namespace WorldMap.Effects
 {
     [Serializable]
     public class MaterialEffectColorBlock

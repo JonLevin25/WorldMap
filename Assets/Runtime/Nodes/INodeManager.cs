@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GalaxyMap.Nodes
+namespace WorldMap.Nodes
 {
     public interface INodeManager
     {

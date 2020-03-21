@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace GalaxyMap.Nodes
+namespace WorldMap.Nodes
 {
     // TODO: Unit tests
     public class MapNodeList : IEnumerable<IMapNode>

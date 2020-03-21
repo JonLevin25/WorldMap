@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GalaxyMap.DependencyInjection;
-using GalaxyMap.Nodes;
 using NaughtyAttributes;
 using UnityEngine;
+using WorldMap.DependencyInjection;
+using WorldMap.Nodes;
 
-namespace GalaxyMap.Effects
+namespace WorldMap.Effects
 {
     public class MapSelectableEffectsManager : MonoBehaviour
     {

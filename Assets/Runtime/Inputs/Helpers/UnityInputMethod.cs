@@ -1,4 +1,4 @@
-namespace GalaxyMap.Inputs.Helpers
+namespace WorldMap.Inputs.Helpers
 {
     public enum UnityInputMethod
     {

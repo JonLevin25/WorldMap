@@ -1,4 +1,4 @@
-namespace GalaxyMap.Nodes
+namespace WorldMap.Nodes
 {
     public interface ILinearMapNodeManager : INodeManager
     {

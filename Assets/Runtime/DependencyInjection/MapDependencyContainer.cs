@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace GalaxyMap.DependencyInjection
+namespace WorldMap.DependencyInjection
 {
     /*
      * Class Originally created to decouple MapSelectionEffectsManager from MapController

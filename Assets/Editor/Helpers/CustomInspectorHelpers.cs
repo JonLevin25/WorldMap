@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace GalaxyMap.Editor
+namespace WorldMap.Editor
 {
     public static class CustomInspectorHelpers
     {

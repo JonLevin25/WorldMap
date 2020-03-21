@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GalaxyMap.Inputs
+namespace WorldMap.Inputs
 {
     public abstract class MapInputBase : MonoBehaviour
     {

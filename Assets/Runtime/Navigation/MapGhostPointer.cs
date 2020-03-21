@@ -1,8 +1,8 @@
 ﻿using System;
-using GalaxyMap.Utils;
 using UnityEngine;
+using WorldMap.Utils;
 
-namespace GalaxyMap.Navigation
+namespace WorldMap.Navigation
 {
     public class MapGhostPointer : MonoBehaviour
     {

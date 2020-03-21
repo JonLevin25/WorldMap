@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using GalaxyMap;
-using GalaxyMap.Nodes;
+using WorldMap;
 using NaughtyAttributes;
 using UnityEngine;
+using WorldMap.Nodes;
 
-namespace GalaxyMap.Effects
+namespace WorldMap.Effects
 {
 // TODO: extract subscription logic to MapNodeObserver or similar?
     public class MapNodesConnector : MonoBehaviour

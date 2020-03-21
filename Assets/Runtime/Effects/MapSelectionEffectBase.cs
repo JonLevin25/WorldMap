@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GalaxyMap.Effects
+namespace WorldMap.Effects
 {
         
     public interface IMapSelectionEffect

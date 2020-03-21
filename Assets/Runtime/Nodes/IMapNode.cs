@@ -2,7 +2,7 @@ using System;
 using Cinemachine;
 using UnityEngine;
 
-namespace GalaxyMap.Nodes
+namespace WorldMap.Nodes
 {
     public interface IMapNode
     {

@@ -1,8 +1,8 @@
 using System;
-using GalaxyMap.Inputs.Helpers;
 using UnityEngine;
+using WorldMap.Inputs.Helpers;
 
-namespace GalaxyMap.Inputs
+namespace WorldMap.Inputs
 {
     public class MapInputUnityAxes : MapInputBase
     {
