@@ -1,0 +1,25 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  split-upm:
+    name: split upm branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: split upm branch
+        run: |
+          git subtree split -P "$PKG_ROOT" -b upm
+          git push -u origin upm
+        env:
+          PKG_ROOT: Assets/WorldMap
