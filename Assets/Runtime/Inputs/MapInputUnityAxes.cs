@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GalaxyMap.Inputs
 {
-    public class GalaxyInputUnityAxes : GalaxyInputBase
+    public class MapInputUnityAxes : MapInputBase
     {
         [Tooltip("Axis to select nodes with, within the map")]
         [SerializeField] private Axis2DInputMethod _navigationAxes = DefaultNavigationAxisValues();
@@ -20,7 +20,7 @@ namespace GalaxyMap.Inputs
         private Vector2 _prevNavInput; // Since nav is axes, previous is used for diff, to simulate `GetButtonDown`
         private bool _usingMouseInput;
 
-        public override event Action<GalaxyInputPayload> OnInputUpdate;
+        public override event Action<MapInputPayload> OnInputUpdate;
 
         private void Start()
         {
@@ -50,7 +50,7 @@ namespace GalaxyMap.Inputs
             _prevNavInput = rawNavInput;
             
             // Send payload
-            var payload = new GalaxyInputPayload(navInput, cameraInput, submitInput, cancelInput);
+            var payload = new MapInputPayload(navInput, cameraInput, submitInput, cancelInput);
             OnInputUpdate?.Invoke(payload);
         }
 

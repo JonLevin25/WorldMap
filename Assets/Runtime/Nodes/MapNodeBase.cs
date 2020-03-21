@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace GalaxyMap.Nodes
 {
-    public abstract class GalaxyNodeBase : MonoBehaviour, IGalaxyNode
+    public abstract class MapNodeBase : MonoBehaviour, IMapNode
     {
         [SerializeField] private CinemachineVirtualCameraBase _viewCamera;
         [SerializeField] private Collider _collider;
 
-        public event Action<IGalaxyNode> OnClicked;
-        public event Action<IGalaxyNode> OnStateChanged;
+        public event Action<IMapNode> OnClicked;
+        public event Action<IMapNode> OnStateChanged;
 
         private bool _available;
         private bool _selected;

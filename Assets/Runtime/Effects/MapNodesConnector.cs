@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace GalaxyMap.Effects
 {
-// TODO: extract subscription logic to GalaxyNodeObserver or similar
-    public class GalaxyMapConnector : MonoBehaviour
+// TODO: extract subscription logic to MapNodeObserver or similar?
+    public class MapNodesConnector : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private LineRenderer _activeLine;
@@ -21,7 +21,7 @@ namespace GalaxyMap.Effects
         [Header("State")]
         [SerializeField] private bool _connectionActive;
 
-        private IGalaxyNode _node;
+        private IMapNode _node;
 
         public bool ConnectionActive
         {
@@ -65,7 +65,7 @@ namespace GalaxyMap.Effects
 
         private void OnDestroy() => Unsubscribe(_node);
 
-        public void SetSelectable(IGalaxyNode newNode)
+        public void SetSelectable(IMapNode newNode)
         {
             // Unsubscribe from old node if relevant
             if (newNode != _node)
@@ -78,19 +78,19 @@ namespace GalaxyMap.Effects
             Bind(_node);
         }
 
-        private void Subscribe(IGalaxyNode node)
+        private void Subscribe(IMapNode node)
         {
             if (node == null) return;
             node.OnStateChanged += Bind;
         }
 
-        private void Unsubscribe(IGalaxyNode node)
+        private void Unsubscribe(IMapNode node)
         {
             if (node == null) return;
             node.OnStateChanged -= Bind;
         }
 
-        private void Bind(IGalaxyNode node)
+        private void Bind(IMapNode node)
         {
             if (node == null) return;
 

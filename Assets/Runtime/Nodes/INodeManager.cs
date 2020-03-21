@@ -5,14 +5,14 @@ namespace GalaxyMap.Nodes
 {
     public interface INodeManager
     {
-        event Action<IGalaxyNode> OnNodeSelected;
-        event Action<IGalaxyNode> OnNodeClicked;
+        event Action<IMapNode> OnNodeSelected;
+        event Action<IMapNode> OnNodeClicked;
         
-        IEnumerable<IGalaxyNode> AllNodes { get; }
+        IEnumerable<IMapNode> AllNodes { get; }
 
-        IGalaxyNode Selected { get; }
+        IMapNode Selected { get; }
         
-        bool SelectIfAvailable(IGalaxyNode node);
+        bool SelectIfAvailable(IMapNode node);
         
         /// <summary>
         /// Makes sure all nodes are correctly labeled 'available' or 'unavailable'

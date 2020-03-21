@@ -10,7 +10,7 @@ namespace GalaxyMap.Effects
 {
     public class MapSelectableEffectsManager : MonoBehaviour
     {
-        [SerializeField] private GalaxyNodeBase node;
+        [SerializeField] private MapNodeBase node;
         
         [Space]
         [InfoBox(GetComponentWarningMessage, InfoBoxType.Warning, nameof(_searchChildrenAtRuntime))]
@@ -24,7 +24,7 @@ namespace GalaxyMap.Effects
         private const string GetComponentWarningMessage = "GetComponentInChildren will run each time selection is changed!" +
                                                           "\nThis is inefficient, and only recommended if you don't have access to the references at edit time";
 
-        private IGalaxyMapController _galaxyMapController;
+        private IMapController _mapController;
         private Task _initTask; // Initialization in Awake() is async, await this to make sure it finishes
 
         private IEnumerable<IMapSelectionEffect> Effects
@@ -53,24 +53,24 @@ namespace GalaxyMap.Effects
             
             if (node == null)
             {
-                Debug.LogError($"{nameof(GalaxyNodeBase)} not set in {nameof(MapSelectableEffectsManager)} {name}!");
+                Debug.LogError($"{nameof(MapNodeBase)} not set in {nameof(MapSelectableEffectsManager)} {name}!");
                 initTaskCompletion.SetResult(true);
                 return;
             }
             
             node.OnStateChanged += OnNodeStateChanged;
 
-            // Get the GalaxyMap, async in case it's Awake runs after this, or it's loaded at runtime
+            // Get the WorldMap, async in case it's Awake runs after this, or it's loaded at runtime
             const float mapControllerTimeout = 0.2f; // Arbitrary short time, just to give MapController a chance to load 
-            _galaxyMapController = await MapDependencyContainer.ResolveAsync<IGalaxyMapController>(mapControllerTimeout);
-            if (_galaxyMapController == null)
+            _mapController = await MapDependencyContainer.ResolveAsync<IMapController>(mapControllerTimeout);
+            if (_mapController == null)
             {
                 initTaskCompletion.SetResult(false);
                 return;
             }
 
-            _galaxyMapController.OnZoomed += OnZoomedIn;
-            _galaxyMapController.OnNodeClicked += OnNodeClicked;
+            _mapController.OnZoomed += OnZoomedIn;
+            _mapController.OnNodeClicked += OnNodeClicked;
             initTaskCompletion.SetResult(true);
         }
 
@@ -81,27 +81,27 @@ namespace GalaxyMap.Effects
             // Unsubscribe
             node.OnStateChanged -= OnNodeStateChanged;
             
-            _galaxyMapController.OnZoomed -= OnZoomedIn;
-            _galaxyMapController.OnNodeClicked -= OnNodeClicked;
+            _mapController.OnZoomed -= OnZoomedIn;
+            _mapController.OnNodeClicked -= OnNodeClicked;
         }
 
-        private void OnZoomedIn(IGalaxyNode zoomedNode) => Bind();
+        private void OnZoomedIn(IMapNode zoomedNode) => Bind();
 
-        private void OnNodeClicked(IGalaxyNode clickedNode) => Bind();
+        private void OnNodeClicked(IMapNode clickedNode) => Bind();
 
-        private void OnNodeStateChanged(IGalaxyNode node) => Bind();
+        private void OnNodeStateChanged(IMapNode node) => Bind();
 
         private async void Bind()
         {
             await _initTask;
-            var state = GetState(_galaxyMapController, node);
+            var state = GetState(_mapController, node);
             foreach (var effect in Effects)
             {
                 effect.Bind(state);
             }
         }
         
-        private static MapEffectState GetState(IGalaxyMapController mapController, IGalaxyNode node)
+        private static MapEffectState GetState(IMapController mapController, IMapNode node)
         {
             if (!node.Available) return MapEffectState.Unavailable;
             if (IsZoomedInOn(mapController, node)) return MapEffectState.HasCameraFocus;
@@ -110,8 +110,8 @@ namespace GalaxyMap.Effects
             return MapEffectState.Normal;
         }
 
-        private static bool IsZoomedInOn(IGalaxyMapController controller, IGalaxyNode node) => controller.ZoomedNode == node;
+        private static bool IsZoomedInOn(IMapController controller, IMapNode node) => controller.ZoomedNode == node;
 
-        private static bool IsHighlighted(IGalaxyNode node) => node.Focused || node.IsMouseOver;
+        private static bool IsHighlighted(IMapNode node) => node.Focused || node.IsMouseOver;
     }
 }

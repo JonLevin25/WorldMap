@@ -6,8 +6,8 @@ using UnityEngine;
 namespace GalaxyMap.DependencyInjection
 {
     /*
-     * Class Originally created to decouple MapSelectionEffectsManager from GalaxyMap
-     * (EffectManager requires IGalaxyMap for events etc.).
+     * Class Originally created to decouple MapSelectionEffectsManager from MapController
+     * (EffectManager requires IMapController for events etc.).
      * Didn't want to use Zenject or a larger framework cause of unneeded complexity.
      * Another solution considered was using an event bus, may implement in the future. 
      */

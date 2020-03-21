@@ -3,10 +3,10 @@ using UnityEngine;
 namespace GalaxyMap.Nodes
 {
     /// <summary>
-    /// The simplest implementation of a MonoBehaviour IGalaxyNode <br />
+    /// The simplest implementation of a MonoBehaviour IMapNode <br />
     /// Completion can be set in inspector, or modified at runtime
     /// </summary>
-    public class SimpleGalaxyNode : GalaxyNodeBase
+    public class SimpleMapNode : MapNodeBase
     {
         [SerializeField] private bool _completed;
 

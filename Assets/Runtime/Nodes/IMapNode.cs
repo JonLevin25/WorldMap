@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace GalaxyMap.Nodes
 {
-    public interface IGalaxyNode
+    public interface IMapNode
     {
-        event Action<IGalaxyNode> OnStateChanged;
-        event Action<IGalaxyNode> OnClicked;
+        event Action<IMapNode> OnStateChanged;
+        event Action<IMapNode> OnClicked;
 
         CinemachineVirtualCameraBase ViewCamera { get; }
         Vector3 Position { get; }

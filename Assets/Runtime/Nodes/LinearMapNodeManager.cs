@@ -8,39 +8,39 @@ using UnityEngine;
 
 namespace GalaxyMap.Nodes
 {
-    public class GalaxyLinearNodeManager : MonoBehaviour, ILinearNodeManager
+    public class LinearMapNodeManager : MonoBehaviour, ILinearMapNodeManager
     {
-        [SerializeField] private GalaxyMapConnector _connectorPrefab;
+        [SerializeField] private MapNodesConnector nodesConnectorPrefab;
         
         [ReorderableList]
-        [SerializeField] private GalaxyNodeBase[] _nodes;
+        [SerializeField] private MapNodeBase[] _nodes;
 
         [Header("Selection")]
         [Tooltip("Whether last node will wrap around to first, and vice-versa")]
         [SerializeField] private bool _wrapAround;
 
-        public event Action<IGalaxyNode> OnNodeSelected;
-        public event Action<IGalaxyNode> OnNodeClicked;
+        public event Action<IMapNode> OnNodeSelected;
+        public event Action<IMapNode> OnNodeClicked;
 
-        private GalaxyNodeList _nodeList;
-        private PrefabPool<GalaxyMapConnector> _connectorPool;
+        private MapNodeList _nodeList;
+        private PrefabPool<MapNodesConnector> _connectorPool;
 
-        public IGalaxyNode Selected => _nodeList?.Current;
-        public IEnumerable<IGalaxyNode> AllNodes => _nodeList?.All;
+        public IMapNode Selected => _nodeList?.Current;
+        public IEnumerable<IMapNode> AllNodes => _nodeList?.All;
 
-        public IGalaxyNode FirstNode => _nodeList.First;
-        public IGalaxyNode LastNode => _nodeList.Last;
+        public IMapNode FirstNode => _nodeList.First;
+        public IMapNode LastNode => _nodeList.Last;
 
 
         private void Awake()
         {
             // Initialize selectables, availability
-            _nodeList = new GalaxyNodeList(_nodes, _wrapAround);
+            _nodeList = new MapNodeList(_nodes, _wrapAround);
             BindAvailability(_nodeList);
 
-            if (_connectorPrefab != null)
+            if (nodesConnectorPrefab != null)
             {
-                _connectorPool = new PrefabPool<GalaxyMapConnector>(_connectorPrefab, "ConnectorPool");
+                _connectorPool = new PrefabPool<MapNodesConnector>(nodesConnectorPrefab, "ConnectorPool");
                 BindConnectors(_connectorPool, _nodeList);
             }
 
@@ -74,7 +74,7 @@ namespace GalaxyMap.Nodes
         /// Return True otherwise
         /// </summary>
         /// <param name="node">The node to select</param>
-        public bool SelectIfAvailable(IGalaxyNode node)
+        public bool SelectIfAvailable(IMapNode node)
         {
             if (_nodeList.SelectIfAvailable(node))
             {
@@ -111,13 +111,13 @@ namespace GalaxyMap.Nodes
 
         public void UpdateNodeAvailability() => BindAvailability(_nodeList);
 
-        private static void BindConnectors(PrefabPool<GalaxyMapConnector> connectorPool, IEnumerable<IGalaxyNode> selectables)
+        private static void BindConnectors(PrefabPool<MapNodesConnector> connectorPool, IEnumerable<IMapNode> selectables)
         {
             if (connectorPool == null || selectables == null) return;
             
             connectorPool.RecycleAll();
 
-            IGalaxyNode last = null;
+            IMapNode last = null;
             foreach (var selectable in selectables)
             {
                 if (last == null)
@@ -136,7 +136,7 @@ namespace GalaxyMap.Nodes
 
         private void OnSelectionChanged()
         {
-            bool IsSelected(GalaxyNodeBase node) => ReferenceEquals(node, _nodeList.Current);
+            bool IsSelected(MapNodeBase node) => ReferenceEquals(node, _nodeList.Current);
             
             OnNodeSelected?.Invoke(Selected);
             foreach (var node in _nodes)
@@ -149,7 +149,7 @@ namespace GalaxyMap.Nodes
         /// Go over nodes and set their available status
         /// </summary>
         /// <param name="nodes">The linear collection of nodes to bind</param>
-        private static void BindAvailability(IEnumerable<IGalaxyNode> nodes)
+        private static void BindAvailability(IEnumerable<IMapNode> nodes)
         {
             if (nodes == null) return;
             
@@ -162,22 +162,22 @@ namespace GalaxyMap.Nodes
             }
         }
 
-        private void OnNodeStateChanged(IGalaxyNode updatedNode)
+        private void OnNodeStateChanged(IMapNode updatedNode)
         {
             // In case completion state changed, update the availability of the nodes after it 
             // TODO: if performance becomes an issue - can be optimized by refactoring to stateful iteration only on relevant nodes
             BindAvailability(_nodeList);
         }
 
-        private void ForwardNodeClick(IGalaxyNode node) => OnNodeClicked?.Invoke(node);
+        private void ForwardNodeClick(IMapNode node) => OnNodeClicked?.Invoke(node);
 
-        private void OnNodeAdded(IGalaxyNode node)
+        private void OnNodeAdded(IMapNode node)
         {
             node.OnClicked += ForwardNodeClick;
             node.OnStateChanged += OnNodeStateChanged;
         }
 
-        private void OnNodeRemoved(IGalaxyNode node)
+        private void OnNodeRemoved(IMapNode node)
         {
             node.OnClicked -= ForwardNodeClick;
             node.OnStateChanged -= OnNodeStateChanged;

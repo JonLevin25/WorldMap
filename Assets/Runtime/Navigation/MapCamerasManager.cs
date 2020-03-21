@@ -36,7 +36,7 @@ namespace GalaxyMap.Navigation
 
         public void JumpTo(Vector3 position) => _ghostPointer.JumpTo(position);
 
-        public void ZoomIn(IGalaxyNode node)
+        public void ZoomIn(IMapNode node)
         {
             // TODO: have root node for "whole map" so null isn't needed?
             if (node == null) ZoomOut();

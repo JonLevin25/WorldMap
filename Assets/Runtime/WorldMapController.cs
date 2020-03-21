@@ -9,13 +9,13 @@ using UnityEngine;
 namespace GalaxyMap
 {
     // Interface should contain methods for input delegate to use
-    public interface IGalaxyMapController
+    public interface IMapController
     {
-        event Action<IGalaxyNode> OnNodeClicked;
-        event Action<IGalaxyNode> OnZoomed;
+        event Action<IMapNode> OnNodeClicked;
+        event Action<IMapNode> OnZoomed;
         
-        IGalaxyNode ZoomedNode { get; }
-        IGalaxyNode SelectedNode { get; }
+        IMapNode ZoomedNode { get; }
+        IMapNode SelectedNode { get; }
         
         /// <summary>
         /// Try to set the given node as 'focused'.<br />
@@ -23,14 +23,14 @@ namespace GalaxyMap
         /// Returns true if the node is now focused, false otherwise.
         /// </summary>
         /// <param name="node">The node to set as focused</param>
-        bool TrySetFocused(IGalaxyNode node);
+        bool TrySetFocused(IMapNode node);
         
         /// <summary>
         /// Zoom in on the given node.<br />
         /// Will always succeed regardless of node availability.
         /// </summary>
         /// <param name="node">The node to zoom in on</param>
-        void ZoomIn(IGalaxyNode node);
+        void ZoomIn(IMapNode node);
 
         /// <summary>
         /// Zoom out to the full map view.
@@ -41,26 +41,26 @@ namespace GalaxyMap
         void MoveCamera(Vector2 movement);
     }
 
-    public class GalaxyMapController : MonoBehaviour, IGalaxyMapController
+    public class WorldMapController : MonoBehaviour, IMapController
     {
         [Header("References")]
         [SerializeField] private MapCamerasManager _camerasManager;
 
         [Header("Config")]
-        [SerializeField] private GalaxyInputDelegateBase _inputDelegate;
+        [SerializeField] private MapInputDelegateBase _inputDelegate;
 
-        public event Action<IGalaxyNode> OnNodeClicked;
-        public event Action<IGalaxyNode> OnZoomed;
+        public event Action<IMapNode> OnNodeClicked;
+        public event Action<IMapNode> OnZoomed;
         
         private INodeManager _nodeManager;
 
-        public IGalaxyNode ZoomedNode { get; private set; }
+        public IMapNode ZoomedNode { get; private set; }
 
-        public IGalaxyNode SelectedNode => _nodeManager.Selected;
+        public IMapNode SelectedNode => _nodeManager.Selected;
 
         private void Awake()
         {
-            MapDependencyContainer.RegisterSingleton<IGalaxyMapController>(this);
+            MapDependencyContainer.RegisterSingleton<IMapController>(this);
             
             _nodeManager = GetComponentInChildren<INodeManager>();
             if (_nodeManager == null)
@@ -88,15 +88,15 @@ namespace GalaxyMap
 
         private void OnDestroy()
         {
-            MapDependencyContainer.UnregisterSingleton<IGalaxyMapController>(this);
+            MapDependencyContainer.UnregisterSingleton<IMapController>(this);
             
             _nodeManager.OnNodeClicked -= OnClicked;
             _nodeManager.OnNodeSelected -= OnSelected;
         }
 
-        #region IGalaxyMapController members
+        #region IMapController members
 
-        public bool TrySetFocused(IGalaxyNode node)
+        public bool TrySetFocused(IMapNode node)
         {
             if (SelectedNode == node) return true;
           
@@ -111,7 +111,7 @@ namespace GalaxyMap
             return false;
         }
 
-        public void ZoomIn(IGalaxyNode node) => ZoomInternal(node);
+        public void ZoomIn(IMapNode node) => ZoomInternal(node);
 
         public void ZoomOut() => ZoomInternal(null);
 
@@ -124,7 +124,7 @@ namespace GalaxyMap
 
         #endregion
 
-        private void ZoomInternal(IGalaxyNode node)
+        private void ZoomInternal(IMapNode node)
         {
             if (ZoomedNode == node) return;
             
@@ -134,14 +134,14 @@ namespace GalaxyMap
             Bind();
         }
 
-        private void OnSelected(IGalaxyNode node)
+        private void OnSelected(IMapNode node)
         {
             if (node == null) return;
             _camerasManager.JumpTo(node.Position);
             Bind();
         }
 
-        private void OnClicked(IGalaxyNode node) => OnNodeClicked?.Invoke(node); // InputDelegate should handle what happens on click
+        private void OnClicked(IMapNode node) => OnNodeClicked?.Invoke(node); // InputDelegate should handle what happens on click
 
         private void Bind()
         {
