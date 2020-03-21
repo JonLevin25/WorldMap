@@ -1,0 +1,30 @@
+{
+    "name": "com.jonlevin.worldmap",
+    "displayName": "World Map",
+    "version": "0.0.1",
+    "unity": "2019.1",
+    "description": "WorldMap is a framework to build interactive level select maps with cinemachine",
+    "keywords": [ "TODO" ],
+    "category": "TODO",
+    "dependencies": {
+        "com.unity.cinemachine": "2.5.0",
+        "com.dbrizov.naughtyattributes": "1.0.4"
+    },
+    "scopedRegistries": [
+        {
+          "name": "package.openupm.com",
+          "url": "https://package.openupm.com",
+          "scopes": [
+            "com.dbrizov.naughtyattributes",
+            "com.openupm"
+          ]
+        }
+    ],
+    "samples": [
+      {
+        "displayName": "TODO",
+        "description": "TODO",
+        "path": "Samples~/TODO"
+      }
+    ]
+  }
