@@ -2,6 +2,7 @@
 using Cinemachine;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Assertions;
 using WorldMap.Utils;
 
 namespace WorldMap.Nodes
@@ -90,6 +91,38 @@ namespace WorldMap.Nodes
 
             mouseMessageForwarder.Target = receivingGameObject;
         }
+
+#if UNITY_EDITOR
+        
+        // [Button("Find & Set Collider in children")] // Didn't work - serialization issues with prefabs. Should work once updated NaughtyAttributes
+        [ContextMenu("Find & Set Collider in children")]
+        protected void SetColliderFromChildren()
+        {
+            const string logPrefix = nameof(SetColliderFromChildren) + ":";
+            
+            Assert(_collider == null, $"{logPrefix} Collider is already set! will not replace");
+            
+            var colliders = GetComponentsInChildren<Collider>();
+            
+            var noCollidersFoundMsg = $"{logPrefix} No colliders found!";
+            Assert(colliders != null, noCollidersFoundMsg);
+            Assert(colliders.Length != 0, noCollidersFoundMsg);
+            Assert(colliders.Length == 1, $"{logPrefix} more than one collider found!");
+
+            var collider = colliders[0];
+
+            Debug.Log($"{logPrefix} Successfully set collider from children!");
+            _collider = collider;
+            
+        }
+
+        private static void Assert(bool condition, string msg)
+        {
+            if (condition) return;
+            // Debug.LogAssertion(msg);
+            throw new AssertionException(msg, "");
+        }
+#endif
     }
     
 }

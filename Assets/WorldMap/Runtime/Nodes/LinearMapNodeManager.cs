@@ -182,5 +182,28 @@ namespace WorldMap.Nodes
             node.OnClicked -= ForwardNodeClick;
             node.OnStateChanged -= OnNodeStateChanged;
         }
+
+#if UNITY_EDITOR
+
+        [ContextMenu("Find Nodes In Children")]
+        public void FindNodesFromChildren()
+        {
+            if (_nodes.Length > 0)
+            {
+                var confirm = UnityEditor.EditorUtility.DisplayDialog("Confirm replace",
+                    $"{GetType().Name} already has {_nodes.Length} nodes! Replace them?", "Yes, Replace", "No");
+                if (!confirm)
+                {
+                    Debug.Log("Did not replace");
+                    return;
+                }
+            }
+
+            var nodes = GetComponentsInChildren<MapNodeBase>();
+            _nodes = nodes;
+            Debug.Log($"Replaced nodes! ({nodes.Length} found)");
+        }
+
+#endif
     }
 }

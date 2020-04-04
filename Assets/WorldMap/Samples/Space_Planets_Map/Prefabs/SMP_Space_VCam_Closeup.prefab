@@ -62,9 +62,9 @@ MonoBehaviour:
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
-  m_ScreenX: 0.718
+  m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 11.8
+  m_CameraDistance: 18
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4963027646609588143}
   - component: {fileID: 4963027646609588142}
   m_Layer: 0
-  m_Name: Default_VCam_Closeup
+  m_Name: SMP_Space_VCam_Closeup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

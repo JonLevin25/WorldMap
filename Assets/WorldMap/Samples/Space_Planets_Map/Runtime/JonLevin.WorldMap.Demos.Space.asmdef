@@ -1,0 +1,15 @@
+{
+    "name": "JonLevin.WorldMap.Demos.Space",
+    "references": [
+        "GUID:dcf4402e2aca3e248b94109cb7c0a03c"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
