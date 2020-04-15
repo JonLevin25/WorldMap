@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace WorldMap.Effects
 {
-    public class MapGameObjectShowEffect : MapSelectionEffectBase
+    public class MapGameObjectActivateEffect : MapSelectionEffectBase
     {
         [ReorderableList]
         [SerializeField] private GameObject[] _gameObjects;

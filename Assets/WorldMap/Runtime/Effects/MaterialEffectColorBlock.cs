@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace WorldMap.Effects
 {
@@ -11,7 +12,7 @@ namespace WorldMap.Effects
         [SerializeField] private Color _unavailable = Color.black;
         [SerializeField] private Color _available = Color.grey;
         [SerializeField] private Color _highlighted = Color.white;
-        [SerializeField] private Color _currentView = Color.white;
+        [SerializeField] private Color _zoomedIn = Color.white;
 
         private HashSet<Material> _validMaterials = new HashSet<Material>();
 
@@ -59,7 +60,7 @@ namespace WorldMap.Effects
                 case MapEffectState.Unavailable: return _unavailable;
                 case MapEffectState.Normal: return _available;
                 case MapEffectState.Highlighted: return _highlighted;
-                case MapEffectState.HasCameraFocus: return _currentView;
+                case MapEffectState.ZoomedIn: return _zoomedIn;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }

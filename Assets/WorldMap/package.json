@@ -3,7 +3,7 @@
     "displayName": "World Map",
     "version": "0.0.1",
     "unity": "2019.1",
-    "description": "WorldMap is a framework to build interactive level select maps with Cinemachine",
+    "description": "WorldMap is a framework to build interactive level select/progression maps with Cinemachine",
     "keywords": [ "level select", "cinemachine", "progression" ],
     "category": "Features",
     "dependencies": {

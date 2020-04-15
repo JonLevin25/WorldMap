@@ -4,15 +4,15 @@ namespace WorldMap.Inputs
 {
     public struct MapInputPayload
     {
-        public readonly Vector2 Selection;
-        public readonly Vector2 Camera;
+        public readonly Vector2 SelectionAxes;
+        public readonly Vector2 CameraAxes;
         public readonly bool SubmitButton;
         public readonly bool CancelButton;
 
-        public MapInputPayload(Vector2 selection, Vector2 camera, bool submitButton, bool cancelButton)
+        public MapInputPayload(Vector2 selectionAxes, Vector2 cameraAxes, bool submitButton, bool cancelButton)
         {
-            Selection = selection;
-            Camera = camera;
+            SelectionAxes = selectionAxes;
+            CameraAxes = cameraAxes;
             SubmitButton = submitButton;
             CancelButton = cancelButton;
         }

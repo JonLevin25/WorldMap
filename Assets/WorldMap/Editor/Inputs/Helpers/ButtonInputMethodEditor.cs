@@ -30,8 +30,8 @@ namespace WorldMap.Editor.Inputs.Helpers
             var startTop = position.yMin;
             SetToLineHeight(ref position);
             
-            // EditorGUI.LabelField(position, label);
-            // MoveDownLine(ref position);
+            EditorGUI.LabelField(position, label);
+            MoveDownLine(ref position);
             EditorGUI.PropertyField(position, _methodProp);
             // EditorGUI.PropertyField(position, _methodProp, label);
             MoveDownLine(ref position);

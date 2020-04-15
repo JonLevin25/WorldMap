@@ -35,14 +35,14 @@ namespace WorldMap.Inputs
 
         protected override void OnInput(MapInputPayload payload)
         {
-            OnNavigationInput(payload.Selection);
-            OnCameraInput(payload.Camera);
+            OnSelectionInput(payload.SelectionAxes);
+            OnCameraInput(payload.CameraAxes);
             
             if (payload.SubmitButton) OnSubmit();
             if (payload.CancelButton) OnCancel();
         }
 
-        protected virtual void OnNavigationInput(Vector2 navDirection)
+        protected virtual void OnSelectionInput(Vector2 navDirection)
         {
             // TODO: can I use Unity UI navigation here (Selectables) for better navigation? (i.e. "up" will move to next planet above, whether its the "next" or previous)
             if (_mapController.ZoomedNode != null) return; // Disable navigation when zoomed in
