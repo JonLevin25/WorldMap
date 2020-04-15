@@ -6,16 +6,19 @@ namespace WorldMap.Inputs
 {
     public class MapInputUnityAxes : MapInputBase
     {
+        [Header("Selection")]
         [Tooltip("Axis to select nodes with, within the map")]
-        [SerializeField] private Axis2DInputMethod _navigationAxes = DefaultNavigationAxisValues();
-        [Space]
+        [SerializeField] private Axis2DInputMethod _selectionAxes = DefaultSelectionAxisValues();
+
+        [Header("Camera")]
+        [SerializeField] private Axis2DInputMethod _cameraAxes = DefaultCameraAxisValues();
+        [SerializeField] private MouseCameraInput _mouseCameraInput;
+        
+        [Header("UI Buttons")]
         [SerializeField] private ButtonInputMethod _submitButton = DefaultSubmitValues();
         [Space]
         [SerializeField] private ButtonInputMethod _cancelButton = DefaultCancelValues();
-
-        [Header("Camera controls (optional)")]
-        [SerializeField] private MouseCameraInput _mouseCameraInput;
-        [SerializeField] private Axis2DInputMethod _cameraAxes = DefaultCameraAxisValues();
+        
 
         private Vector2 _prevNavInput; // Since nav is axes, previous is used for diff, to simulate `GetButtonDown`
         private bool _usingMouseInput;
@@ -34,23 +37,23 @@ namespace WorldMap.Inputs
 
         private void Update()
         {
-            var rawNavInput = _navigationAxes.GetInput();
-            var navInput = ProcessNavInput(rawNavInput);
+            var rawNavInput = _selectionAxes.GetInput();
+            var selectionAxes = ProcessNavInput(rawNavInput);
 
-            var cameraInput = _cameraAxes.GetInput();
+            var cameraAxes = _cameraAxes.GetInput();
 
             var submitInput = _submitButton.GetButtonDown();
             var cancelInput = _cancelButton.GetButtonDown();
 
             if (_usingMouseInput)
             {
-                cameraInput += _mouseCameraInput.GetInput();
+                cameraAxes += _mouseCameraInput.GetInput();
             }
             
             _prevNavInput = rawNavInput;
             
             // Send payload
-            var payload = new MapInputPayload(navInput, cameraInput, submitInput, cancelInput);
+            var payload = new MapInputPayload(selectionAxes, cameraAxes, submitInput, cancelInput);
             OnInputUpdate?.Invoke(payload);
         }
 
@@ -58,7 +61,7 @@ namespace WorldMap.Inputs
         {
             bool IsSameDirection(float x, float y) => x * y > 0f;
             
-            var input = _navigationAxes.GetInput();
+            var input = _selectionAxes.GetInput();
             var finalInput = input;
             
             // Simulate ButtonDown - ignore axis if same direction
@@ -67,7 +70,7 @@ namespace WorldMap.Inputs
             return finalInput;
         }
 
-        private static Axis2DInputMethod DefaultNavigationAxisValues()
+        private static Axis2DInputMethod DefaultSelectionAxisValues()
         {
             var horAxis = new AxisInputMethod(UnityInputMethod.KeyCode, "Horizontal", KeyCode.RightArrow, KeyCode.LeftArrow);
             var verAxis = new AxisInputMethod(UnityInputMethod.KeyCode, "Vertical", KeyCode.UpArrow, KeyCode.DownArrow); 

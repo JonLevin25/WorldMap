@@ -6,6 +6,11 @@ using UnityEngine;
 using WorldMap.Effects;
 using WorldMap.Utils;
 
+// TODO: extract to editor class
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace WorldMap.Nodes
 {
     public class LinearMapNodeManager : MonoBehaviour, ILinearMapNodeManager
@@ -19,6 +24,12 @@ namespace WorldMap.Nodes
         [Tooltip("Whether last node will wrap around to first, and vice-versa")]
         [SerializeField] private bool _wrapAround;
 
+        [SerializeField] private bool _debugShowOrder;
+        
+        [ShowIf(nameof(_debugShowOrder))]
+        [InfoBox("No GUI Camera set, will use Camera.main in update, which is very inefficient!", InfoBoxType.Warning, nameof(WarnUsingMainCameraForDebug))]
+        [SerializeField] private Camera _debugGuiCamera;
+
         public event Action<IMapNode> OnNodeSelected;
         public event Action<IMapNode> OnNodeClicked;
 
@@ -30,6 +41,16 @@ namespace WorldMap.Nodes
 
         public IMapNode FirstNode => _nodeList.First;
         public IMapNode LastNode => _nodeList.Last;
+        
+        private static GUIStyle DebugGuiStyle => new GUIStyle 
+        { 
+            normal = new GUIStyleState{ textColor = Color.magenta },
+            alignment = TextAnchor.MiddleCenter,
+            fontSize = 22,
+        };
+        
+        // For inspector
+        private bool WarnUsingMainCameraForDebug() => _debugShowOrder && !_debugGuiCamera;
 
 
         private void Awake()
@@ -54,10 +75,28 @@ namespace WorldMap.Nodes
             }
         }
 
+        private void OnGUI()
+        {
+            if (!_debugShowOrder) return;
+            
+            var cam = _debugGuiCamera != null? _debugGuiCamera : Camera.main;
+
+            var numberedNodes = _nodes.Select((node, i) => (node, i));
+            foreach (var (node, i) in numberedNodes)
+            {
+                if (node == null) continue;
+                
+                var pos = cam.WorldToScreenPoint(node.Position);
+                var rect = new Rect(pos.x, Screen.height-pos.y, 0, 0);
+
+                var text = $"Node [{i}]";
+                GUI.Label(rect, text, DebugGuiStyle);
+            }
+        }
+
         private void OnValidate()
         {
             if (_nodeList != null) _nodeList.WrapAround = _wrapAround;
-            
         }
 
         private void OnDestroy()
@@ -183,6 +222,7 @@ namespace WorldMap.Nodes
             node.OnStateChanged -= OnNodeStateChanged;
         }
 
+// TODO: extract to editor class
 #if UNITY_EDITOR
 
         [ContextMenu("Find Nodes In Children")]
@@ -200,7 +240,16 @@ namespace WorldMap.Nodes
             }
 
             var nodes = GetComponentsInChildren<MapNodeBase>();
+            
+            Undo.RecordObject(gameObject, "Set Map nodes from children");
             _nodes = nodes;
+
+            EditorUtility.SetDirty(gameObject);
+            if (PrefabUtility.IsPartOfPrefabInstance(gameObject))
+            {
+                PrefabUtility.RecordPrefabInstancePropertyModifications(gameObject);
+            }
+            
             Debug.Log($"Replaced nodes! ({nodes.Length} found)");
         }
 

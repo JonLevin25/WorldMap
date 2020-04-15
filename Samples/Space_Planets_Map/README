@@ -1,5 +1,9 @@
-This sample WorldMap uses free assets from the Unity Asset Store.
-Package: "Vast Outer Space"
-Check it out here: https://assetstore.unity.com/packages/3d/environments/sci-fi/vast-outer-space-38913
+WorldMap plugin: This demo features some assets from the Unity Asset Store
 
-Textures were compressed (png -> jpg) to avoid bloating WorlMap package
+* Package: "Vast Outer Space"
+Check it out here: https://assetstore.unity.com/packages/3d/environments/sci-fi/vast-outer-space-38913
+(Textures were compressed (png -> jpg) to avoid bloating WorlMap package)
+
+* Package: Universal Sound FX
+Check it out here: https://assetstore.unity.com/packages/audio/sound-fx/universal-sound-fx-17256
+

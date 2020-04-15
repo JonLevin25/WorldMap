@@ -8,7 +8,7 @@ using WorldMap.Nodes;
 
 namespace WorldMap.Effects
 {
-    public class MapSelectableEffectsManager : MonoBehaviour
+    public class NodeEffectsManager : MonoBehaviour
     {
         [SerializeField] private MapNodeBase node;
         
@@ -53,7 +53,7 @@ namespace WorldMap.Effects
             
             if (node == null)
             {
-                Debug.LogError($"{nameof(MapNodeBase)} not set in {nameof(MapSelectableEffectsManager)} {name}!");
+                Debug.LogError($"{nameof(MapNodeBase)} not set in {nameof(NodeEffectsManager)} {name}!");
                 initTaskCompletion.SetResult(true);
                 return;
             }
@@ -104,7 +104,7 @@ namespace WorldMap.Effects
         private static MapEffectState GetState(IMapController mapController, IMapNode node)
         {
             if (!node.Available) return MapEffectState.Unavailable;
-            if (IsZoomedInOn(mapController, node)) return MapEffectState.HasCameraFocus;
+            if (IsZoomedInOn(mapController, node)) return MapEffectState.ZoomedIn;
             if (IsHighlighted(node)) return MapEffectState.Highlighted;
             
             return MapEffectState.Normal;

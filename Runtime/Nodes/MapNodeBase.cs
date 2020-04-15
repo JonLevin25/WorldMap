@@ -5,12 +5,17 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using WorldMap.Utils;
 
+// TODO: extract to editor class
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace WorldMap.Nodes
 {
     public abstract class MapNodeBase : MonoBehaviour, IMapNode
     {
         [SerializeField] private CinemachineVirtualCameraBase _viewCamera;
-        [SerializeField] private Collider _collider;
+        [SerializeField] private Collider _clickCollider;
 
         public event Action<IMapNode> OnClicked;
         public event Action<IMapNode> OnStateChanged;
@@ -67,7 +72,7 @@ namespace WorldMap.Nodes
 
         protected virtual void Awake()
         {
-            ConfigMouseEventForwarding(_collider.gameObject, gameObject);
+            ConfigMouseEventForwarding(_clickCollider.gameObject, gameObject);
         }
 
         private void OnMouseEnter() => IsMouseOver = true;
@@ -92,15 +97,17 @@ namespace WorldMap.Nodes
             mouseMessageForwarder.Target = receivingGameObject;
         }
 
+// TODO: extract to editor class
 #if UNITY_EDITOR
         
         // [Button("Find & Set Collider in children")] // Didn't work - serialization issues with prefabs. Should work once updated NaughtyAttributes
         [ContextMenu("Find & Set Collider in children")]
         protected void SetColliderFromChildren()
         {
+            
             const string logPrefix = nameof(SetColliderFromChildren) + ":";
             
-            Assert(_collider == null, $"{logPrefix} Collider is already set! will not replace");
+            Assert(_clickCollider == null, $"{logPrefix} Collider is already set! will not replace");
             
             var colliders = GetComponentsInChildren<Collider>();
             
@@ -112,8 +119,16 @@ namespace WorldMap.Nodes
             var collider = colliders[0];
 
             Debug.Log($"{logPrefix} Successfully set collider from children!");
-            _collider = collider;
             
+            Undo.RecordObject(gameObject, "Set collider from children");
+            
+            _clickCollider = collider;
+ 
+            EditorUtility.SetDirty(gameObject);
+            if (PrefabUtility.IsPartOfPrefabInstance(gameObject))
+            {
+                PrefabUtility.RecordPrefabInstancePropertyModifications(gameObject);
+            }
         }
 
         private static void Assert(bool condition, string msg)
