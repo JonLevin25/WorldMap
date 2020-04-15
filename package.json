@@ -1,7 +1,7 @@
 {
     "name": "com.jonlevin.worldmap",
     "displayName": "World Map",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "unity": "2019.1",
     "description": "WorldMap is a framework to build interactive level select/progression maps with Cinemachine",
     "keywords": [ "level select", "cinemachine", "progression" ],
@@ -10,6 +10,13 @@
         "com.unity.cinemachine": "2.5.0",
         "com.dbrizov.naughtyattributes": "1.0.4"
     },
+    "samples": [
+      {
+        "displayName": "Space Demo (Template)",
+        "description": "Space Level-select Demo that can serve as template for using World Map",
+        "path": "Samples~/Space_Map_Demo"
+      }
+    ],
     "scopedRegistries": [
         {
           "name": "package.openupm.com",
